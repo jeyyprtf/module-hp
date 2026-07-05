@@ -28,6 +28,7 @@ GAME_FPS="60"                 # target fps overlay (panelmu 60Hz -> 60 sudah pas
 # double-downscale yang bikin PUBG kabur). Coba salah satu, bukan dua-duanya.
 DO_RESSCALE="1"
 RES_W="720"; RES_H="1600"; RES_DENSITY="320"   # 320 = 480*(720/1080), UI tetap proporsional
+DO_UIREFLOW="1"               # 1=kill launcher biar icon gak bengkak (pakai am kill, wallpaper AMAN)
 DO_COMPILE="1"                # 1=coba compile PUBG ke 'speed' sekali (anti-stutter JIT)
 # SF props butuh REBOOT utk efektif & kamu jarang reboot -> default 0.
 # Props ini SUDAH aktif dari boot terakhirmu, jadi gak ada yang hilang.
@@ -68,12 +69,15 @@ if [ "$DO_RESSCALE" = "1" ]; then
   wm size ${RES_W}x${RES_H} >/dev/null 2>&1
   wm density ${RES_DENSITY} >/dev/null 2>&1
   log "  -> $(wm size 2>/dev/null | tr -d '\n') | $(wm density 2>/dev/null)"
-  # PENTING: launcher & SystemUI Realme cache ukuran lama -> icon bengkak.
-  # Paksa reflow dengan restart keduanya (mereka respawn otomatis).
-  LAUNCHER=$(cmd package resolve-activity -c android.intent.category.HOME --brief 2>/dev/null | tail -1 | cut -d/ -f1)
-  log "reflow UI: restart launcher ($LAUNCHER) + SystemUI"
-  [ -n "$LAUNCHER" ] && am force-stop "$LAUNCHER" 2>/dev/null
-  am force-stop com.android.systemui 2>/dev/null
+  # Launcher cache ukuran lama -> icon bengkak. Reflow pakai 'am kill'
+  # (kill LEMBUT proses background) BUKAN force-stop, biar WALLPAPER GAK
+  # ke-reset (force-stop clear state wallpaper di ColorOS). SystemUI sengaja
+  # TIDAK disentuh agar wallpaper aman.
+  if [ "$DO_UIREFLOW" = "1" ]; then
+    LAUNCHER=$(cmd package resolve-activity -c android.intent.category.HOME --brief 2>/dev/null | tail -1 | cut -d/ -f1)
+    log "reflow UI: am kill launcher ($LAUNCHER) — wallpaper aman"
+    [ -n "$LAUNCHER" ] && am kill "$LAUNCHER" 2>/dev/null
+  fi
 fi
 
 # 4) COMPILE PUBG -> speed (AOT penuh, hilangkan stutter JIT saat loading aset).
