@@ -19,14 +19,14 @@ PKG="com.tencent.ig"          # package PUBG kamu
 # CATATAN PANEL 720p: render >720p itu mubazir (panel gak bisa nampilin).
 # 0.65 = ideal utk panelmu (hemat GPU, mata nyaris gak lihat beda).
 # Turun ke 0.55 = headroom FPS lebih besar. JANGAN 1.0 (buang GPU sia2).
-DOWNSCALE="0.65"
+DOWNSCALE="1.0"
 GAME_FPS="60"                 # target fps overlay (panelmu 60Hz -> 60 sudah pas)
 # === RESOLUSI GLOBAL (khusus HP-mu: render 1080 -> panel fisik 720) ===
 # 1 = turunkan render SELURUH sistem ke ~720p. GPU berhenti render pixel
 #     yang panelmu gak bisa tampilkan -> lebih dingin -> throttle mundur.
 # PENTING: kalau DO_RESSCALE=1, SET DOWNSCALE="1.0" di atas (hindari
 # double-downscale yang bikin PUBG kabur). Coba salah satu, bukan dua-duanya.
-DO_RESSCALE="0"
+DO_RESSCALE="1"
 RES_W="720"; RES_H="1600"; RES_DENSITY="320"   # 320 = 480*(720/1080), UI tetap proporsional
 DO_COMPILE="1"                # 1=coba compile PUBG ke 'speed' sekali (anti-stutter JIT)
 # SF props butuh REBOOT utk efektif & kamu jarang reboot -> default 0.

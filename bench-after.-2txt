@@ -1,0 +1,19 @@
+BENCH REPORT (com.tencent.ig)
+----------------------------------------------------------
+## THERMAL SAAT INI (throttling aktif atau tidak?)
+policy0 : scaling_max= / hw_max=1804800  (cur=1420800)
+policy4 : scaling_max=2419200 / hw_max=2419200  (cur=710400)
+policy7 : scaling_max=3187200 / hw_max=3187200  (cur=844800)
+>> suhu CPU/GPU/skin:
+	Temperature{mValue=30.8, mType=2, mName=battery, mStatus=0}
+	Temperature{mValue=79.5, mType=0, mName=CPU6, mStatus=0}
+	Temperature{mValue=74.4, mType=0, mName=CPU7, mStatus=0}
+	Temperature{mValue=50.0, mType=1, mName=GPU0, mStatus=0}
+	Temperature{mValue=41.978, mType=3, mName=skin, mStatus=0}
+	Temperature{mValue=35.4, mType=2, mName=battery, mStatus=0}
+>> override aktif? IsStatusOverride: true
+----------------------------------------------------------
+## FRAME STATS (gfxinfo) — metrik utama
+(kalau kosong: PUBG tidak di foreground / belum render frame)
+----------------------------------------------------------
+## SELESAI — simpan file ini, kirim yang SEBELUM & SESUDAH ke Claude
