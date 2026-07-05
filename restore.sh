@@ -34,6 +34,10 @@ log "reset resolusi & density ke default"
 wm size reset >/dev/null 2>&1
 wm density reset >/dev/null 2>&1
 log "  -> $(wm size 2>/dev/null | tr -d '\n') | $(wm density 2>/dev/null)"
+# reflow UI biar icon balik normal tanpa reboot
+LAUNCHER=$(cmd package resolve-activity -c android.intent.category.HOME --brief 2>/dev/null | tail -1 | cut -d/ -f1)
+[ -n "$LAUNCHER" ] && am force-stop "$LAUNCHER" 2>/dev/null
+am force-stop com.android.systemui 2>/dev/null
 
 # 4) power saver dibiarkan 0 (memang default sehatmu; ubah manual bila perlu).
 

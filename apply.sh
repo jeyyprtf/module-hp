@@ -68,6 +68,12 @@ if [ "$DO_RESSCALE" = "1" ]; then
   wm size ${RES_W}x${RES_H} >/dev/null 2>&1
   wm density ${RES_DENSITY} >/dev/null 2>&1
   log "  -> $(wm size 2>/dev/null | tr -d '\n') | $(wm density 2>/dev/null)"
+  # PENTING: launcher & SystemUI Realme cache ukuran lama -> icon bengkak.
+  # Paksa reflow dengan restart keduanya (mereka respawn otomatis).
+  LAUNCHER=$(cmd package resolve-activity -c android.intent.category.HOME --brief 2>/dev/null | tail -1 | cut -d/ -f1)
+  log "reflow UI: restart launcher ($LAUNCHER) + SystemUI"
+  [ -n "$LAUNCHER" ] && am force-stop "$LAUNCHER" 2>/dev/null
+  am force-stop com.android.systemui 2>/dev/null
 fi
 
 # 4) COMPILE PUBG -> speed (AOT penuh, hilangkan stutter JIT saat loading aset).
