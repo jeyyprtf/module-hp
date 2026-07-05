@@ -1,26 +1,674 @@
+script pertama:
+(
+#Delete Dexo2oat Compile
+for app in $(pm list packages  | cut -f2 -d:); do
+    pm delete-dexopt "$app"
+done
+#Delete JIT & AOT Compile 
+cmd package compile -m verify -a
+#Delete All Device Config
+for device_config in $(cmd device_config list | cut -f 1 -d =); do
+a=${device_config%/*}
+b=${device_config#*/}
+device_config delete $a $b
+sleep 0.01
+done
+# Delete System
+cmd settings reset --user 0 system untrusted_defaults
+cmd settings reset --user 0 system untrusted_clear
+cmd settings reset --user 0 system trusted_defaults
+cmd settings reset --user 0 system case-insensitive
+
+#Delete Secure
+cmd settings reset --user 0 secure untrusted_defaults
+cmd settings reset --user 0 secure untrusted_clear
+cmd settings reset --user 0 secure trusted_defaults
+cmd settings reset --user 0 secure case-insensitive
+
+#Delete Global
+cmd settings reset --user 0 global untrusted_defaults
+cmd settings reset --user 0 global untrusted_clear
+cmd settings reset --user 0 global trusted_defaults
+cmd settings reset --user 0 global case-insensitive
+pm compile -r install  -a
+)> /dev/null 2>&1
+
+script kedua:
+settings delete system Hardware.Renderer
+settings delete system HardwareAccelerated
+settings delete system HardwareRenderer.Accelerated
+settings delete system HardwareRenderer.FrameRenderRequest
+settings delete system HardwareRenderer.CodecImgBits
+settings delete system HardwareBuffer
+settings delete system gpu_mode
+settings delete system gpu_option_mode
+settings delete system debug.gl.swapinterval
+settings delete system animator_fps_scale
+settings delete system user_refresh_rate
+settings delete system peak_refresh_rate
+settings delete system min_refresh_rate
+settings delete system animator_fps_scale
+settings delete system gpu_mode
+settings delete system debug.redroid.fps
+settings delete system gpu_option_mode
+settings delete system enforce_process_limit
+settings delete system animator_duration_scale
+settings delete system transition_animation_scale
+settings delete system window_animation_scale
+settings delete system debug.performance.accoustic.force
+settings delete system debug.rs.default-CPU-driver
+settings delete system debug.rs.default-CPU-buffer
+settings delete system debug.rs.default-GPU-driver
+settings delete system thread_priority
+settings delete system asset_atlas_background_creation
+settings delete system cpu_max_temp
+settings delete system persist.perf.cores
+settings delete system nearby_scanning_permission_allowed
+settings delete system nearby_scanning_enabled
+settings delete system multicore_packet_scheduler
+settings delete system game_mode
+settings delete system send_security_reports
+settings delete system sys.use_fifo_ui
+settings delete system gearhead:driving_mode_settings_enabled
+settings delete system screen_mode_setting
+settings delete system debug.gr.swapinterval
+settings delete system debug.egl.buffcount
+settings delete system debug.egl.force_msaa
+settings delete system debug.cpurend.vsync
+settings delete system debug.enabletr
+settings delete system debug.overlayui.enable
+settings delete system debug.gralloc.gfx_ubwc_disable
+settings delete system debug.mdpcomp.logs
+settings delete system debug.performance.tuning
+settings delete system debug.egl.hw
+settings delete system debug.egl.profiler
+settings delete system hwui.disable_vsync
+settings delete system hw3d.force
+settings delete system debug.sf.hw
+settings delete system debug.javafx.animation.framerate
+settings delete system debug.app.performance_restricted
+settings delete system debug.gpurend.vsync
+settings delete system debug.power_management_mode
+settings delete system debug.cpuprio
+settings delete system debug.gpuprio
+settings delete system debug.hwui.target_cpu_time_percent
+settings delete system debug.hwui.target_gpu_time_percent
+settings delete system debug.ioprio
+settings delete system pointer_speed
+settings delete system windowsmgr.max_events_per_sec
+settings delete system cpu_boost_on_input
+settings delete system debug.egl.swapinterval
+settings delete system debug.gl.swapinterval
+settings delete system debug.MB.inner.running
+settings delete system debug.MB.running
+settings delete system Hardware.Renderer
+settings delete system HardwareAccelerated
+settings delete system HardwareRenderer.Accelerated
+settings delete system HardwareRenderer.FrameRenderRequest
+settings delete system HardwareRenderer.CodecImgBits
+settings delete system HardwareBuffer
+settings delete system Renderer.Accelerated
+settings delete global zram_enabled
+settings delete global restricted_device_performance
+settings delete global low_power
+settings delete global low_power_sticky
+settings delete global NON_DISPATCHABLE_HANDLE
+settings delete global wifi_scan_always_enabled
+settings delete global low_power_exceptions
+settings delete global native_memtag_sync
+settings delete global native_heap_zero_init
+settings delete global gpu_composition_policy
+settings delete global gpu_render_policy
+settings delete global enable_hw_2d
+settings delete global enable_hw_3d
+settings delete global fstrim_mandatory_interval
+settings delete global performance.cache_size
+settings delete global mem_perfomance
+settings delete global hardwareAccelerated
+settings delete global storage_preload
+settings delete global thread_priority
+settings delete global battery_tip_constans
+settings delete global enable_asset_atlas_persistence
+settings delete global asset_atlas_background_creation
+settings delete global customize_max_power_temperature_control_osie
+settings delete global customize_max_power_temperature_control_videosr
+settings delete global customize_max_power_temperature_control_hbm
+settings delete global cpu_max_temp
+settings delete global fast.xml
+settings delete global persist.perf.cores
+settings delete global zrn.disable_iptables
+settings delete global GPUTUNER_SWITCH
+settings delete global GPUTURBO_SWITCH
+settings delete global FPSTUNER_SWITCH
+settings delete global GPUTUNER_MODE
+settings delete global GPUTUNER_PERFORMANCE_MODE
+settings delete global GPUTUNER_PERFORMANCE_MODE_OPEN
+settings delete global job_scheduler_constants
+settings delete global ota_disable_automatic_update
+settings delete global sem_power_mode_refresh_rate_cover
+settings delete global adaptive_power_saving_setting
+settings delete global sem_enhanced_cpu_responsiveness
+settings delete global sem_power_mode_limited_apps_and_home_screen
+settings delete global sem_power_mode_refresh_rate
+settings delete global sem_power_saving_adjust_brightness_factor
+settings delete global wifi_power_save
+settings delete global gms_checkin_timeout_min
+settings delete global full_pss_min_interval
+settings delete global full_pss_lowered_interval
+settings delete global activity_manager_constants
+settings delete global wifi_scan_throttle_enabled
+settings delete global settings_enable_monitor_phantom_procs
+settings delete secure game_auto_temperature_control
+settings delete secure refresh_rate_mode
+settings delete secure customize_power_temperature_control_hbm
+settings delete secure customize_power_temperature_control_osie
+settings delete secure allow.fast.charging
+settings delete secure customize_power_temperature_control_videosr
+settings delete secure power_ui_enable
+settings delete secure low_power
+settings delete secure high_power
+settings delete secure doze_always_on
+settings delete secure doze_enabled
+settings delete secure doze_pulse_on_double_tap
+settings delete secure doze_tap_gesture
+settings delete global activity_manager_constants
+settings delete global job_scheduler_quota_controller_constants
+settings put global job_scheduler_time_controller_constants ""
+settings put global job_scheduler_constants ""
+settings put global activity_starts_logging_enabled 0
+settings put global cached_apps_freezer device_default
+settings put secure sysui_do_not_disturb 1
+settings delete global battery_stats_constants
+settings delete global battery_tip_constants
+settings delete global batterystats_reset_time
+settings delete global battery_saver_constants
+settings put global low_power 0
+settings put global low_power_sticky 0
+settings put global low_power_trigger_level 0
+
+1.(Durasi 5-30menit tergantung hp) Saran di floating windows/ belah layar dulu sebelum menjalankan biar bisa sambil main wa
+2.(Gada durasi, Reboot hp setelah selesai yg ni)
+
+script ketiga:
+settings put global window_animation_scale 1.0
+settings put global transition_animation_scale 1.0
+settings put global animator_duration_scale 1.0
+settings delete global touch.pressure.scale
+settings delete system touch.pressure.scale
+settings delete system touch.orientationAware
+settings delete system touch.filter.level
+settings delete system touch.size.bias
+settings delete system touch.size.calibration
+settings delete system touch.pressure.calibration
+settings delete system touch.size.scale
+settings delete system touch.size.isSummed
+settings delete system touch.distance.scale
+settings delete system touch.coverage.calibration
+settings delete system touch.gestureMode
+settings delete system MultitouchMinDistance
+settings delete system MultitouchSettleInterval
+settings delete system TapInterval
+settings delete system TapSlop
+settings delete system touch.orientation.calibration
+settings delete system touch.distance.calibration
+settings delete system ro.product.multi_touch_enabled
+settings delete system touch.deviceType
+settings delete system touch.toolSize.isSummed
+settings delete system view.scroll_friction
+settings delete system view.touch_slop
+settings delete system af.resampler.quality
+settings delete secure long_press_timeout
+settings delete system ro.product.max_num_touch
+settings delete system persist.af.resampler.quality
+settings delete secure multi_press_timeout
+settings delete secure tap_duration_enabled
+settings delete secure tap_duration_threshold
+
+script keempat:
+cores=$(nproc --all)
+threads="$(cat /proc/cpuinfo | grep processor | wc -l)"
+fps="$(dumpsys display | grep -o -E 'fps=[0-9]+(\.[0-9]+)?' | cut -d'=' -f2 | sort -nr | head -n1 | awk '{printf("%d\n", ($1+0.5)/1)}')"
+fps2="$(dumpsys display | grep -o -E 'fps=[0-9]+(\.[0-9]+)?' | cut -d'=' -f2 | sort -nr | head -n1 | awk '{printf("%d\n", ($1+0.5)/1 + 30)}')"
+frame_cycle=$(echo "scale=10; 1 / $fps" | bc)
+frame_cycle_ns=$(printf "%.0f" $(echo "$frame_cycle * 1000000000" | bc | cut -d'.' -f1))
+phase_offset_ns=$(printf "%.0f" $(echo "$frame_cycle_ns / 4" | bc))
+cores="$(nproc --all 2>/dev/null || echo 4)"
+threads="$(cat /proc/cpuinfo 2>/dev/null | grep -c '^processor' || echo "$cores")"
+cmd thermalservice override-status 0
+setprop debug.performance.client 1
+setprop debug.performance.profile 1
+setprop debug.performance.schema 1
+setprop debug.performance.tuning 1
+setprop debug.performance_schema_max_memory_classes 387
+setprop debug.performance_schema_max_socket_classes 100
+setprop debug.performance_schema_digests_size 99500000
+setprop debug.performance.disable_gpu_preemption true
+setprop debug.performance.disable_responsiveness_checks true
+setprop debug.performance.disable_ramp_up_on_fg_boost true
+setprop debug.performance.disable_ramp_up_on_frame_drop true
+setprop debug.performance.disable_ramp_up_on_input_event true
+setprop debug.performance.disable_ramp_up_on_animation true
+setprop debug.perf.cpu_freq_boost true
+setprop debug.perf.mode 2
+setprop debug.perf.tuning 1
+setprop debug.perf_cpu_time_max_percent 50
+setprop debug.perf_event_max_sample_rate 4000000
+setprop debug.perf_event_paranoid -1
+setprop debug.systemuicompilerfilter speed
+
+setprop debug.thermal.bypass true
+setprop debug.thermal.disable_cgroup_thermal true
+setprop debug.thermal.enable_policy_override true
+setprop debug.thermal.policy_performance 1
+setprop debug.thermal.throttle.support no
+setprop debug.thermal_control false
+setprop debug.composition.type gpu
+setprop debug.composition.pineapple.type gpu
+setprop debug.hwui.disable_scissor_opt false
+setprop debug.performance.tuning 1
+setprop debug.cpurend.vsync false
+setprop debug.gpurend.vsync false
+setprop debug.display.allow_non_native_refresh_rate_override 1
+setprop debug.display.min_refresh_rate $fps
+setprop debug.display.peak_refresh_rate $fps
+setprop debug.display.render_frame_rate_is_physical_refresh_rate true
+setprop debug.refresh_rate.view_override $fps
+setprop debug.sf.use_frame_rate_priority 1
+setprop debug.hwc.disabletonemapping true
+setprop debug.fb.rgb565 1
+setprop debug.surface-fps-scope $fps
+setprop debug.multicore.processing 1
+# Journal mode: WAL untuk write concurrency tinggi, kurangi lock contention
+setprop debug.sqlite.journalmode WAL
+
+# Sync mode: NORMAL (fsync jarang) untuk speed, bukan FULL/OFF agar stabil
+setprop debug.sqlite.syncmode NORMAL
+
+# Batasi ukuran WAL journal file (bytes); 0=unlimited, 1048576=1MB optimal hindari I/O burst
+setprop debug.sqlite.journalsizelimit 1048576
+
+# Page size: 4096 bytes (default modern SQLite sejak 3.12), match disk block kurangi read-modify-write
+setprop debug.sqlite.pagesize 4096
+
+setprop debug.hwui.renderengine.backend skiagpu
+setprop debug.hwui.disable_vsync false
+setprop debug.hwui.drawing_enabled true
+setprop debug.hwui.force_no_vsync false
+setprop debug.hwui.fps_limit 0
+setprop debug.hwui.level 0
+setprop debug.hwui.overdraw 0
+setprop debug.hwui.profile 0
+setprop debug.hwui.vulkan.validation 0
+setprop debug.hwui.nv_profiling false
+setprop debug.hwui.print_config 0
+setprop debug.hwui.render_dirty_regions true
+setprop debug.hwui.render_thread true
+setprop debug.hwui.render_compability true
+setprop debug.hwui.show_dirty_regions false
+setprop debug.hwui.show_layers_updates false
+setprop debug.hwui.show_non_rect_clip 0
+setprop debug.hwui.skia_atrace_enabled false
+setprop debug.hwui.skia_tracing_enabled false
+setprop debug.hwui.skia_use_perfetto_track_events false
+setprop debug.hwui.skip_eglmanager_telemetry true
+setprop debug.hwui.skip_empty_damage true
+setprop debug.hwui.target_cpu_time_percent 10
+setprop debug.hwui.textureformat ETC2
+setprop debug.hwui.trace_gpu_resources false
+setprop debug.hwui.use_buffer_age true
+setprop debug.hwui.use_gpu_pixel_buffers true
+setprop debug.hwui.use_hint_manager true
+setprop debug.hwui.use_partial_updates true
+setprop debug.hwui.vsync_batching 1
+setprop debug.hwui.capture_skp_enabled false
+setprop debug.hwui.disable_overdraw true
+setprop debug.hwui.show_overdraw false
+
+
+setprop debug.sf.cpu_freq_index 7
+setprop debug.sf.cpupolicy.lowbound_uclamp_min 60
+setprop debug.sf.cpupolicy.upbound_uclamp_max_ll 60
+setprop debug.sf.cpupolicy.min_boost 60
+setprop debug.sf.cpupolicy.boost_idle_bl 1
+setprop debug.sf.cpupolicy.min_60 1
+setprop debug.sf.cpupolicy.up_power_factor 3
+setprop debug.sf.cpupolicy.foreground 1
+setprop debug.sf.edge_extension_shader 1
+setprop debug.sf.enable_vsync_immed 1
+setprop debug.sf.layer_history_trace 0
+setprop debug.sf.ddms 1
+setprop debug.sf.disable_backpressure 0
+setprop debug.sf.disable_client_composition_cache 1
+setprop debug.sf.enable_adpf_cpu_hint true
+setprop debug.sf.enable_cached_set_render_scheduling 1
+setprop debug.sf.enable_egl_image_tracker false
+setprop debug.sf.enable_hgl 1
+setprop debug.sf.enable_hwc_vds 0
+setprop debug.sf.enable_layer_caching 1
+setprop debug.sf.enable_planner_prediction true
+setprop debug.sf.enable_transaction_tracing 1
+setprop debug.sf.enable_vsync_immed 1
+setprop debug.sf.fp16_client_target true
+setprop debug.sf.gpu_comp_tiling 1
+setprop debug.sf.gpu_freq_index 7
+setprop debug.sf.hw 0
+setprop debug.sf.kernel_idle_timer_update_overlay 0
+setprop debug.sf.latch_unsignaled 1
+setprop debug.sf.layer_caching_active_layer_timeout_ms 1000
+setprop debug.sf.layer_history_trace 0
+setprop debug.sf.layerdump 0
+setprop debug.sf.mem_freq_index 7
+setprop debug.sf.multithreaded_present true
+setprop debug.sf.no_hw_vsync 0
+setprop debug.sf.normalize_hint_session_durations 1
+setprop debug.sf.predict_hwc_composition_strategy 0
+setprop debug.sf.prediction_ratio 1.0
+setprop debug.sf.recomputecrop 0
+setprop debug.sf.send_early_power_session_hint false
+setprop debug.sf.send_late_power_session_hint false
+setprop debug.sf.show_predicted_vsync 0
+setprop debug.sf.showbackground 0
+setprop debug.sf.showcpu 0
+setprop debug.sf.showfps 0
+setprop debug.sf.showupdates 0
+setprop debug.sf.swapinterval 0
+setprop debug.sf.treat_170m_as_sRGB 0
+setprop debug.sf.use_frame_rate_priority 1
+setprop debug.sf.use_phase_offsets_as_durations 1
+setprop debug.sf.use_prediction_pipeline 1
+setprop debug.sf.vsp_trace 0
+setprop debug.sf.vsr_trace 0
+setprop debug.sf.vst_trace 0
+setprop debug.sf.vsync_reactor true
+setprop debug.sf.vsync_reactor_enabled true
+setprop debug.sf.vsync_reactor_ignore_hotpath 0
+setprop debug.sf.vsync_reactor_ignore_present_fences 0
+setprop debug.sf.vsync_trace_detailed_info 0
+setprop debug.sf.enable_adpf_cpu_hint true
+setprop debug.sf.enable_egl_image_tracker false
+setprop debug.surfacetrace.enabled 0
+setprop debug.sf.swaprect 1
+setprop debug.sf.show_refresh_rate_overlay_in_middle 0
+setprop debug.sf.show_refresh_rate_overlay_render_rate 0
+setprop debug.sf.show_refresh_rate_overlay_spinner 0
+setprop debug.sf.enable_gpu_security false
+setprop debug.sf.disable_client_composition_cache 1
+setprop debug.sf.display_dejitter 1
+setprop debug.sf.enable_adpf_cpu_hint true
+
+setprop debug.adbd.logging 0
+setprop debug.als.logs 0
+setprop debug.angle.validation 0
+setprop debug.assert 0
+setprop debug.checkjni 0
+setprop debug.child_notifs 0
+setprop debug.contacts.ksad 0
+setprop debug.c2.use_dmabufheaps 1
+setprop debug.cpuprio 7
+setprop debug.debuggerd.disable 1
+setprop debug.debuggerd.wait_for_debugger 0
+setprop debug.debuggerd.wait_for_gdb 0
+setprop debug.dumpstate.flags 0x04
+setprop debug.egl.buffcount 4
+setprop debug.egl.callstack false
+setprop debug.egl.force_msaa false
+setprop debug.egl.hw 0
+setprop debug.egl.trace 0
+setprop debug.enable.wl_log false
+setprop debug.extractor.ignore_version 0
+setprop debug.force_low_ram 0
+setprop debug.force_rtl false
+setprop debug.generate-debug-info false
+setprop debug.gpuprio 7
+setprop debug.gr.numframebuffers 3
+setprop debug.gr.swapinterval 0
+setprop debug.graphics.gpu.profiler.perfetto 0
+setprop debug.hal_client_domain hal_perf
+setprop debug.hdr.avg 0
+setprop debug.hdr.enforce.panel_brt 0
+setprop debug.hdr.log.service 0
+setprop debug.hyper.enable 0
+setprop debug.ids.enable 0
+setprop debug.ioprio 7
+setprop debug.jni.logging 0
+setprop debug.layout false
+setprop debug.ld.all 0
+setprop debug.log 0
+setprop debug.mdlogger.Running 0
+setprop debug.mdpcomp.logs 0
+setprop debug.orientation.log false
+setprop debug.overlayui.enable 1
+setprop debug.qctwa.preservebuf 1
+setprop debug.qctwa.statusbar 1
+setprop debug.random.poolsize 1024
+setprop debug.sensor.hal 0
+setprop debug.sensors false
+setprop debug.servicemanager.log_calls 0
+setprop debug.svi.logs 0
+setprop debug.synclog 0
+setprop debug.sys.looper_stats_enabled 0
+setprop debug.sys.noschedgroups 0
+setprop debug.systemui.latency_tracking 0
+setprop debug.tflite.trace 0
+setprop debug.track-associations 0
+setprop debug.track_amkill 0
+setprop debug.velocitytracker.alt 0
+setprop debug.hwui.skip_vsync false
+setprop debug.enable.sglscale 1
+setprop security.perf_harden 0
+setprop debug.surfacetrace.enabled false
+setprop debug.svi.logs 0
+setprop debug.synclog 0
+setprop debug.sys.looper_stats_enabled 0
+setprop debug.sys.noschedgroups 0
+setprop debug.systemui.latency_tracking 0
+setprop debug.track-associations 0
+setprop debug.track_amkill 0
+setprop debug.velocitytracker.alt 0
+setprop debug.sensor.hal 0
+setprop debug.sensors false
+setprop debug.servicemanager.log_calls 0
+setprop debug.jni.logging 0
+setprop debug.kill_allocating_task 0
+setprop debug.layout false
+setprop debug.ld.all 0
+setprop debug.log 0
+setprop debug.mate.log.safe_string 0
+setprop debug.mate.log.service 0
+setprop debug.mdlogger.Running 0
+setprop debug.mdpcomp.logs 0
+setprop debug.orientation.log false
+setprop debug.overlayui.enable 1
+setprop debug.hyper.enable 0
+setprop debug.ids.enable 0
+setprop debug.graphics.game_default_frame_rate.disabled true
+setprop debug.graphics.gpu.profiler.perfetto 0
+setprop debug.hal_client_domain hal_perf
+setprop debug.hbmc.log 0
+setprop debug.hdr.avg 0
+setprop debug.hdr.enforce.panel_brt 0
+setprop debug.hdr.log.service 0
+setprop debug.egl.trace 0
+setprop debug.enable.wl_log false
+setprop debug.enabletr true
+setprop debug.extractor.ignore_version 0
+setprop debug.generate-debug-info false
+setprop debug.force_low_ram 0
+setprop debug.force_rtl false
+setprop debug.cp2.scan_all_packages 0
+setprop debug.cpuprio 7
+setprop debug.ioprio 7
+setprop debug.debuggerd.disable 1
+setprop debug.debuggerd.wait_for_debugger 0
+setprop debug.debuggerd.wait_for_gdb 0
+setprop debug.OVRManager.cpuLevel 7
+setprop debug.OVRManager.gpuLevel 8
+setprop debug.adbd.logging 0
+setprop debug.als.logs 0
+setprop debug.angle.validation 0
+setprop debug.app.performance_restricted false
+setprop debug.assert 0
+setprop debug.atrace.tags.enableflags 0
+setprop debug.c2.use_dmabufheaps 1
+setprop debug.checkjni 0
+setprop debug.child_notifs 0
+setprop debug.onetrace.tag 0
+setprop debug.fdtrack_enable 0
+setprop debug.hwui.capture_skp_frames false
+setprop debug.hwui.trace_skia 0
+setprop debug.trace_resource_preload 0
+setprop debug.track_amkill 0
+setprop debug.mdpcomp.logs 0
+setprop debug.jni.logging 0
+setprop debug.MB.running 45
+setprop debug.enabletr true
+setprop debug.power_management_mode max_pref
+setprop debug.incremental.always_enable_read_timeouts_for_system_dataloaders 0
+setprop debug.incremental.enable_read_timeouts_after_install 0
+setprop debug.incremental.enforce_readlogs_max_interval_for_system_dataloaders 0
+
+# render engine source by @Dcx400
+setprop debug.renderengine.backend skiagl
+setprop debug.renderengine.skia.defer_invalidate true
+setprop debug.renderengine.skia.reduce_ops_task true
+setprop debug.renderengine.skia_atrace_enabled false
+setprop debug.renderengine.skia_tracing_enabled false
+setprop debug.renderengine.skia_use_perfetto_track_events false
+
+#Tweaks VivoX100 source by @Darrenxml
+setprop debug.hwc.disabletonemapping true
+setprop debug.fb.rgb565 1
+setprop debug.surface-fps-scope $fps
+setprop debug.multicore.processing 1
+setprop debug.sf.hwinterpolation 1
+setprop debug.media.vpp.enable false
+setprop debug.media.video.frc false
+setprop debug.media.video.vpp false
+setprop debug.media.video.style false
+setprop debug.camera.vcf.provider true
+setprop debug.gpu.render_thread true
+setprop debug.gpu.force_thread_policy true
+setprop debug.cpurend.vsync_boost true
+setprop debug.vsync.enable_primary_vsync true
+setprop debug.hwui.8bit_hdr_headroom false
+setprop debug.hwui.webview_overlays_enabled false
+setprop debug.choreographer.skipwarning 30
+setprop debug.vsync.fps_divisor -1
+setprop debug.fwk.enable_adpf_cpu_hint true
+setprop debug.hwui.render_ahead 2
+setprop debug.hwui.trace_gpu_resources false
+setprop debug.IOMFB.wait_for_gpu 0
+setprop debug.cluster_little-set_his_speed $(cat /sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_min_freq)
+setprop debug.cluster_big-set_his_speed $(cat /sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_max_freq)
+setprop debug.powehint.cluster_little-set_his_speed $(cat /sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_min_freq)
+setprop debug.powehint.cluster_big-set_his_speed $(cat /sys/devices/system/cpu/cpu1/cpufreq/cpuinfo_max_freq)
+
+script kelima:
+setprop debug.renderengine.backend vulkan
+setprop debug.hwui.renderer vulkan
+setprop debug.angle.backend vulkan
+setprop debug.angle.feature_overrides_enabled disableFlipping:forceDirectComposition
+setprop debug.angle.rules /data/local/tmp/a4a_rules.json
+setprop debug.angle.overlay ""
+
+script keenam (ada 2 opsi, pilih salah satu):
+opsi 1:
+#Red Magic+Redmi K-60 Gaming
+setprop debug.sf.composition.type gpu #GPU 100%
+setprop debug.sf.enable_hwc_vds 0
+setprop debug.sf.disable_backpressure 0
+setprop debug.sf.phase_offset_threshold_ns none
+setprop debug.sf.high_fps_late_sf_phase_offset_ns ""
+setprop debug.sf.enable_advanced_sf_phase_offset none
+setprop debug.sf.latch_unsignaled true
+setprop debug.sf.auto_latch_unsignaled none
+setprop debug.sf.scroll_boost_refreshrate 480
+setprop debug.sf.touch_boost_refreshrate 240
+setprop debug.sf.refreshrate_multi_group 1
+setprop debug.sf.frame_rate_multiple_threshold 120
+setprop debug.sf.early_app_phase_offset_ns 500000
+setprop debug.sf.early_gl_app_phase_offset_ns 15000000
+setprop debug.sf.early_gl_phase_offset_ns 3000000
+setprop debug.sf.early_phase_offset_ns 500000
 setprop debug.sf.enable_gl_backpressure 0
+setprop debug.sf.high_fps_early_gl_phase_offset_ns 650000
+setprop debug.sf.high_fps_early_phase_offset_ns 6100000
+setprop debug.sf.high_fps_late_app_phase_offset_ns 1000000
+setprop debug.sf.hw 0
+setprop debug.sf.perf_fps_early_gl_phase_offset_ns 9000000
+setprop debug.sf.phase_offset_threshold_for_next_vsync_ns 6100000
+setprop debug.sf.use_phase_offsets_as_durations ""
+setprop debug.sf.early.app.duration ""
+setprop debug.sf.early.sf.duration ""
+setprop debug.sf.earlyGl.app.duration ""
+setprop debug.sf.earlyGl.sf.duration ""
+setprop debug.sf.hwc.min.duration ""
+setprop debug.sf.late.app.duration ""
+setprop debug.sf.late.sf.duration ""
 property=(
-debug.sf.disable_backpressure=1
-debug.sf.enable_hwc_vds=0
-debug.sf.latch_unsignaled=true
-debug.sf.use_phase_offsets_as_durations=1
-debug.sf.early.app.duration=13666666
-debug.sf.early.sf.duration=10500000
-debug.sf.earlyGl.app.duration=13666666
-debug.sf.earlyGl.sf.duration=10500000
-debug.sf.hwc.min.duration=10500000
-debug.sf.late.app.duration=13666666
-debug.sf.late.sf.duration=10500000
-debug.sf.high_fps.early.app.duration=3166666
-debug.sf.high_fps.early.sf.duration=1366666
-debug.sf.high_fps.earlyGl.app.duration=3166666
-debug.sf.high_fps.earlyGl.sf.duration=1366666
-debug.sf.high_fps.hwc.min.duration=10500000
-debug.sf.high_fps.late.app.duration=3166666
-debug.sf.high_fps.late.sf.duration=1366666
+debug.surface_flinger.vsync_sf_event_phase_offset_ns=14400000
+debug.sf.high_fps.early.app.duration=10000000
+debug.sf.high_fps.early.sf.duration=13800000
+debug.sf.high_fps.earlyGl.app.duration=10000000
+debug.sf.high_fps.earlyGl.sf.duration=13800000
+debug.sf.high_fps.late.app.duration=10000000
+debug.sf.high_fps.late.sf.duration=13800000
+debug.sf.early_phase_offset_ns=1500000
+debug.sf.early_gl_phase_offset_ns=3000000
+debug.sf.early_app_phase_offset_ns=1500000
+debug.sf.early_gl_app_phase_offset_ns=15000000
+debug.sf.high_fps.hwc.min.duration=8500000
 )
 for prop in ${property[@]}; do
 key=${prop%=*}
 value=${prop#*=}
 setprop $key $value
 done
+property=(
+debug.sf.early.app.duration=20000000
+debug.sf.early.sf.duration=19600000
+debug.sf.earlyGl.app.duration=16300000
+debug.sf.earlyGl.sf.duration=11900000
+debug.sf.hwc.min.duration=10500000
+debug.sf.late.app.duration=16600000
+debug.sf.late.sf.duration=10500000
+)
+for prop in ${property[@]}; do
+key=${prop%=*}
+value=${prop#*=}
+setprop $key $value
+done
+
+
+opsi 2:
+#Samsung Galaxy S23 Ultra
+setprop debug.sf.composition.type gpu #GPU 100%
+setprop debug.sf.enable_hwc_vds 0
+setprop debug.sf.disable_backpressure 0
+setprop debug.sf.phase_offset_threshold_ns none
+setprop debug.sf.high_fps_late_sf_phase_offset_ns ""
+setprop debug.sf.enable_advanced_sf_phase_offset none
+setprop debug.sf.latch_unsignaled true
+setprop debug.sf.auto_latch_unsignaled none
+setprop debug.sf.scroll_boost_refreshrate 480
+setprop debug.sf.touch_boost_refreshrate 240
+setprop debug.sf.refreshrate_multi_group 1
+setprop debug.sf.frame_rate_multiple_threshold 120
+setprop debug.sf.enable_gl_backpressure 0
+setprop debug.sf.hw 0
+setprop debug.sf.use_phase_offsets_as_durations ""
+setprop debug.sf.early.app.duration ""
+setprop debug.sf.early.sf.duration ""
+setprop debug.sf.earlyGl.app.duration ""
+setprop debug.sf.earlyGl.sf.duration ""
+setprop debug.sf.hwc.min.duration ""
+setprop debug.sf.late.app.duration ""
+setprop debug.sf.late.sf.duration ""
+setprop debug.sf.high_fps_early_phase_offset_ns 100000
+setprop debug.sf.high_fps_early_gl_phase_offset_ns 100000
+setprop debug.sf.high_fps_late_app_phase_offset_ns 100000
+setprop debug.sf.high_fps_late_sf_phase_offset_ns 100000
+setprop debug.sf.early_phase_offset_ns 100000
+setprop debug.sf.early_app_phase_offset_ns 100000
+setprop debug.sf.early_gl_phase_offset_ns 100000
+setprop debug.sf.early_gl_app_phase_offset_ns 100000
