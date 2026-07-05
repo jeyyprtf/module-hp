@@ -1,0 +1,75 @@
+CAPABILITY TEST REPORT (paste balik ke Claude)
+
+----------------------------------------------------------
+## A. THERMAL OVERRIDE — apakah 'override-status' benar2 jalan?
+----------------------------------------------------------
+>> status awal:
+IsStatusOverride: false
+Thermal Status: 0
+>> coba override ke 0 (NONE)...
+   keluaran perintah: '<kosong/ok>'
+>> status setelah override:
+IsStatusOverride: true
+Thermal Status: 0
+>> coba kembalikan (reset)...
+   keluaran reset: '<kosong/ok>'
+IsStatusOverride: false
+   (kalau IsStatusOverride tetap true & reset error -> nanti clear via reboot)
+   KESIMPULAN: kalau IsStatusOverride sempat 'true' -> lever ini JALAN.
+
+----------------------------------------------------------
+## B. BUKTI THERMAL CAPPING — hardware max vs yang diizinkan sekarang
+----------------------------------------------------------
+policy0 : hardware_max=1804800  scaling_max_sekarang=
+policy4 : hardware_max=2419200  scaling_max_sekarang=2419200
+policy7 : hardware_max=3187200  scaling_max_sekarang=3187200
+(kalau scaling_max < hardware_max -> kernel sedang nge-cap = throttling aktif)
+
+----------------------------------------------------------
+## C. BISA TULIS CPUFREQ? (tes governor, langsung di-restore)
+----------------------------------------------------------
+HASIL: scaling_governor TIDAK writable oleh shell -> cpufreq off-limits non-root
+
+----------------------------------------------------------
+## D. STATUS KOMPILASI PUBG (target: 'speed' utk hilangkan stutter JIT)
+----------------------------------------------------------
+package: com.tencent.ig
+Dexopt state:
+      arm64: [status=speed-profile] [reason=bg-dexopt]
+  BgDexopt state:
+    mDexOptThread:null
+    mDexOptCancellingThread:null
+(kalau filter='verify' atau 'speed-profile' -> kita bisa naikkan ke 'speed')
+>> tes apakah shell boleh trigger compile (mode speed-profile dulu, ringan):
+   keluaran: 'Error: Failed to cpmpile !'
+
+----------------------------------------------------------
+## E. GAME MODE / device_config — bisa tulis knob game?
+----------------------------------------------------------
+>> nilai game_overlay PUBG sekarang:
+mode=2,vulkan=1,downscaleFactor=0.65,fps=60
+>> tes tulis flag dummy (namespace kita sendiri, lalu dihapus):
+   readback: 1
+Successfully deleted probe from claude_test
+   (kalau readback=1 -> kita BISA atur game_overlay downscale/fps)
+
+----------------------------------------------------------
+## F. SF PROPS yang KINI aktif (konfirmasi mana yang nyangkut)
+----------------------------------------------------------
+  debug.sf.latch_unsignaled              = '1'
+  debug.sf.disable_backpressure          = '1'
+  debug.sf.enable_gl_backpressure        = '1'
+  debug.sf.auto_latch_unsignaled         = ''
+  debug.sf.use_frame_rate_priority       = ''
+
+----------------------------------------------------------
+## G. REFRESH RATE — bisa paksa 120Hz non-root? (buat mode 90fps PUBG)
+----------------------------------------------------------
+peak (settings): 60.0
+min  (settings): 0.0
+(info: PUBG 'Smooth' cap 60fps; 120Hz baru berguna kalau pakai 90fps mode)
+
+----------------------------------------------------------
+## SELESAI
+----------------------------------------------------------
+Paste seluruh output ini. Setelah ini aku susun module final + restore.
