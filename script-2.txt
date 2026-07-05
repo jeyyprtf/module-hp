@@ -1,0 +1,36 @@
+setprop debug.sf.composition.type gpu #GPU 100%
+setprop debug.sf.enable_hwc_vds 0
+setprop debug.sf.disable_backpressure 1
+setprop debug.sf.phase_offset_threshold_ns none
+setprop debug.sf.high_fps_late_sf_phase_offset_ns ""
+setprop debug.sf.enable_advanced_sf_phase_offset none
+setprop debug.sf.latch_unsignaled true
+setprop debug.sf.auto_latch_unsignaled none
+setprop debug.sf.scroll_boost_refreshrate 480
+setprop debug.sf.touch_boost_refreshrate 240
+setprop debug.sf.refreshrate_multi_group 1
+setprop debug.sf.frame_rate_multiple_threshold 120
+setprop debug.sf.early_app_phase_offset_ns 500000
+setprop debug.sf.early_gl_app_phase_offset_ns 15000000
+setprop debug.sf.early_gl_phase_offset_ns 3000000
+setprop debug.sf.early_phase_offset_ns 500000
+setprop debug.sf.enable_gl_backpressure 0
+setprop debug.sf.high_fps_early_gl_phase_offset_ns 650000
+setprop debug.sf.high_fps_early_phase_offset_ns 6100000
+setprop debug.sf.high_fps_late_app_phase_offset_ns 1000000
+setprop debug.sf.hw 0
+setprop debug.sf.perf_fps_early_gl_phase_offset_ns 9000000
+setprop debug.sf.phase_offset_threshold_for_next_vsync_ns 6100000
+setprop debug.sf.use_phase_offsets_as_durations 1
+property=(
+debug.surface_flinger.vsync_sf_event_phase_offset_ns=14400000
+debug.sf.early_phase_offset_ns=1500000
+debug.sf.early_gl_phase_offset_ns=3000000
+debug.sf.early_app_phase_offset_ns=1500000
+debug.sf.early_gl_app_phase_offset_ns=15000000
+)
+for prop in ${property[@]}; do
+key=${prop%=*}
+value=${prop#*=}
+setprop $key $value
+done

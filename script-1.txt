@@ -1,0 +1,26 @@
+setprop debug.sf.enable_gl_backpressure 0
+property=(
+debug.sf.disable_backpressure=1
+debug.sf.enable_hwc_vds=0
+debug.sf.latch_unsignaled=true
+debug.sf.use_phase_offsets_as_durations=1
+debug.sf.early.app.duration=13666666
+debug.sf.early.sf.duration=10500000
+debug.sf.earlyGl.app.duration=13666666
+debug.sf.earlyGl.sf.duration=10500000
+debug.sf.hwc.min.duration=10500000
+debug.sf.late.app.duration=13666666
+debug.sf.late.sf.duration=10500000
+debug.sf.high_fps.early.app.duration=3166666
+debug.sf.high_fps.early.sf.duration=1366666
+debug.sf.high_fps.earlyGl.app.duration=3166666
+debug.sf.high_fps.earlyGl.sf.duration=1366666
+debug.sf.high_fps.hwc.min.duration=10500000
+debug.sf.high_fps.late.app.duration=3166666
+debug.sf.high_fps.late.sf.duration=1366666
+)
+for prop in ${property[@]}; do
+key=${prop%=*}
+value=${prop#*=}
+setprop $key $value
+done
