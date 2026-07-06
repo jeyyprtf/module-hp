@@ -31,6 +31,10 @@ Isi lever aktif:
 sh /sdcard/apply.sh
 # WAJIB: launch ulang PUBG biar game_overlay kepakai.
 
+# Bersihkan storage (aman dijalankan kapan saja):
+# Membebaskan 2-8GB space dalam hitungan detik tanpa merusak performa game/app.
+sh /sdcard/clean.sh
+
 # Balik normal kapan pun:
 sh /sdcard/restore.sh
 
